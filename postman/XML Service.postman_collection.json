@@ -1,0 +1,143 @@
+{
+  "info": {
+    "_postman_id": "4b79a15e-bf7d-4b19-97a5-f1cbd74a901a",
+    "name": "XML Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "47034833",
+    "_collection_link": "https://go.postman.co/collection/47034833-4b79a15e-bf7d-4b19-97a5-f1cbd74a901a?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Number to Words Conversion",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "/*const xml2js = require('xml2js');\r",
+              "xml2js.parseString(pm.response.text(), {\r",
+              "    explicitArray: false,\r",
+              "    ignoreAttrs: true,\r",
+              "    trim: true\r",
+              "}, function (err, result) {\r",
+              "    if (err) {\r",
+              "        console.log(\"XML Parse Error:\", err);\r",
+              "        return;\r",
+              "    }\r",
+              "\r",
+              "    console.log(result);\r",
+              "\r",
+              "    const words = result[\"soap:Envelope\"][\"soap:Body\"]\r",
+              "        [\"m:NumberToWordsResponse\"]\r",
+              "        [\"m:NumberToWordsResult\"];\r",
+              "\r",
+              "    console.log(\"Result:\", words);\r",
+              "\r",
+              "    pm.environment.set(\"numberWords\", words);\r",
+              "});*/\r",
+              "\r",
+              "const response = xml2Json(pm.response.text());\r",
+              "\r",
+              "console.log(response);\r",
+              "\r",
+              "const actualValue =response[\"soap:Envelope\"][\"soap:Body\"][\"m:NumberToWordsResponse\"][\"m:NumberToWordsResult\"];\r",
+              "\r",
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Validate string of response\", function () {\r",
+              "    pm.expect(actualValue).to.eql(pm.collectionVariables.get(\"result\"));\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Parse complete response as string\", function () {\r",
+              "    pm.expect(pm.response.text()).to.include(pm.collectionVariables.get(\"result\"));\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "content-type": true,
+          "connection": true,
+          "accept-encoding": true,
+          "accept": true,
+          "user-agent": true
+        },
+        "protocolVersion": "http1"
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/soap+xml; charset=utf-8",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "<soap12:Envelope xmlns:soap12=\"http://www.w3.org/2003/05/soap-envelope\">\r\n  <soap12:Body>\r\n    <NumberToWords xmlns=\"http://www.dataaccess.com/webservicesserver/\">\r\n      <ubiNum>{{number}}</ubiNum>\r\n    </NumberToWords>\r\n  </soap12:Body>\r\n</soap12:Envelope>",
+          "options": {
+            "raw": {
+              "language": "xml"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/webservicesserver/NumberConversion.wso",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "webservicesserver",
+            "NumberConversion.wso"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "number",
+      "value": ""
+    },
+    {
+      "key": "result",
+      "value": ""
+    }
+  ]
+}
