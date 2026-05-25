@@ -8,6 +8,27 @@ The project focuses on XML response parsing, XML-to-JSON conversion, dynamic var
 
 ---
 
+## Suggested Project Structure
+
+```text
+NumberToWords-XML-Response-Validation-with-Postman/
+│
+├── README.md
+├── postman/
+│   └── NumberToWords.postman_collection.json
+├── screenshots/
+│   ├── collection-variables.png
+│   ├── request-headers.png
+│   ├── request-body.png
+│   ├── response-body.png
+│   ├── test-scripts.png
+│   └── test-results.png
+└── .gitignore
+```
+
+---
+
+
 ## Project Scope
 
 This project covers:
@@ -321,26 +342,6 @@ Full response validation is simpler and useful for quick checks.
 6. Open the `Number to Words Conversion` request.
 7. Click **Send**.
 8. Check the **Test Results** tab.
-
----
-
-## Suggested Project Structure
-
-```text
-NumberToWords-XML-Response-Validation-with-Postman/
-│
-├── README.md
-├── postman/
-│   └── NumberToWords.postman_collection.json
-├── screenshots/
-│   ├── collection-variables.png
-│   ├── request-headers.png
-│   ├── request-body.png
-│   ├── response-body.png
-│   ├── test-scripts.png
-│   └── test-results.png
-└── .gitignore
-```
 
 ---
 
